@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block start %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="d-flex mb-4" method="GET" action="{% url 'search' %}">
+        <input class="form-control me-2" type="search" name="query" placeholder="Search for dishes or restaurants" aria-label="Search" value="{{ query }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+      </form>
+    </div>
+  </div>
+
+  {% if searched %}
+
+    {% if dishes or restaurants %}
+      <div class="row mt-4">
+        <div class="col-md-12">
+           <button class="btn btn-outline-secondary me-2" type="submit" name="filter" value="dishes">Dishes</button>
+        <button class="btn btn-outline-secondary" type="submit" name="filter" value="restaurants">Restaurants</button>
+
+        </div>
+        {% for dish in dishes %}
+          <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+<!--              <img src="{{ dish.image_url }}" class="card-img-top" alt="{{ dish.name }}">-->
+              <div class="card-body">
+                <h5 class="card-title">{{ dish.name }}</h5>
+                <p class="card-text">{{ dish.resturant.name }}</p>
+                <p class="card-text">{{ dish.description }}</p>
+                <p class="card-text"><strong>Price:</strong> ${{ dish.price }}</p>
+                <a href="#" class="btn btn-primary">Order Now</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% for restaurant in restaurants %}
+          <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{ restaurant.name }}</h5>
+                <p class="card-text">{{ restaurant.address }}</p>
+                <p class="card-text">{{ restaurant.rating }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <p>No results found for "{{ query }}".</p>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
