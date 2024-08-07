@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Cart</h1>
+{% if cart.items.all %}
+    <ul>
+        {% for item in cart.items.all %}
+            <li>
+                {{ item.dish.name }} - ${{ item.dish.price }} x {{ item.quantity }} = ${{ item.get_total_price }}
+                <form method="post" action="{% url 'remove_from_cart' item.dish.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Total: ${{ cart.get_total_price }}</h2>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}

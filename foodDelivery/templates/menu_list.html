@@ -1,0 +1,141 @@
+{% extends "rbase.html" %}
+{% block start %}
+<h2 class="col-6 mx-auto card p-3 shadow-lg">{{request.restaurant.name}}</h2>
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Add Dish</h2>
+        <div class="mb-3">
+            <label for="dish_name" class="form-label">Dish Name</label>
+            <input name="dish_name" id="dish_name" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input name="price" id="price" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="dish_img" class="form-label">Dish Image</label>
+            <input name="dish_img" id="dish_img" type="file" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="discount" class="form-label">Discount</label>
+            <input name="discount" id="discount" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Dish Description</label>
+            <textarea name="description" id="description" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="veg" class="form-label">Veg/Non-veg</label>
+            <div class="form-check">
+                <input name="veg" id="veg" class="form-check-input" type="radio" checked value="True" required>
+                <label for="veg" class="form-check-label">Veg</label>
+            </div>
+            <div class="form-check">
+                <input name="veg" id="non-veg" class="form-check-input" type="radio" value="False" required>
+                <label for="non-veg" class="form-check-label">Non-veg</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Add Dish</button>
+    </form>
+</div>
+<hr>
+<div class="container">
+    <form class="row justify-content-center my-3" method="get" action="{% url 'search' %}">
+    <div class="col-12 col-md-4">
+        <input class="form-control mb-2" type="search" name="query" placeholder="Search" aria-label="Search">
+    </div>
+    <div class="col-12 col-md-2">
+        <button class="btn btn-outline-success w-100" type="submit">Search</button>
+    </div>
+</form>
+
+{% if dishes %}
+    <div class="row">
+        {% for dish in dishes %}
+        <div class="col-md-4 position-relative">
+            <div class="card mb-4 shadow-lg">
+                {% if dish.dish_img %}
+                <img src="{{ dish.dish_img.url }}" class="card-img-top" alt="{{ dish.dish_name }}" style="max-height: 150px; object-fit: cover;">
+                {% else %}
+                <img src="path/to/default/image.jpg" class="card-img-top" alt="Default Image" style="max-height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ dish.dish_name }}</h5>
+                    <p class="card-text">{{ dish.description }}</p>
+                    <p class="card-text">Price: ${{ dish.price }}</p>
+                    <p class="card-text">Discount: ${{ dish.discount }}</p>
+                    <p class="card-text">Veg: {{ dish.veg }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <form method="post" action="/res/delete_dish/{{ dish.id }}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateModal{{ dish.id }}">Update</button>
+                    </div>
+                </div>
+            </div>
+             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{dish.rating}}
+  </span>
+        </div>
+
+        <!-- Update Modal -->
+        <div class="modal fade" id="updateModal{{ dish.id }}" tabindex="-1" aria-labelledby="updateModalLabel{{ dish.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel{{ dish.id }}">Update Dish {{ dish.id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/res/update_dish/{{ dish.id }}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="modal_dish_name_{{ dish.id }}" class="form-label">Dish Name</label>
+                                <input name="dish_name" id="modal_dish_name_{{ dish.id }}" type="text" class="form-control" value="{{ dish.dish_name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modal_price_{{ dish.id }}" class="form-label">Price</label>
+                                <input name="price" id="modal_price_{{ dish.id }}" type="text" class="form-control" value="{{ dish.price }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modal_discount_{{ dish.id }}" class="form-label">Discount</label>
+                                <input name="discount" id="modal_discount_{{ dish.id }}" type="text" class="form-control" value="{{ dish.discount }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modal_image_{{ dish.id }}" class="form-label">Dish Image</label>
+                                <input name="dish_img" id="modal_image_{{ dish.id }}" type="file" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="modal_description_{{ dish.id }}" class="form-label">Dish Description</label>
+                                <textarea name="description" id="modal_description_{{ dish.id }}" class="form-control" required>{{ dish.description }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modal_veg_{{ dish.id }}" class="form-label">Veg/Non-veg</label>
+                                <div class="form-check">
+                                    <input name="veg" id="modal_veg_true_{{ dish.id }}" class="form-check-input" type="radio" value="True" {% if dish.veg %}checked{% endif %} required>
+                                    <label for="modal_veg_true_{{ dish.id }}" class="form-check-label">Veg</label>
+                                </div>
+                                <div class="form-check">
+                                    <input name="veg" id="modal_veg_false_{{ dish.id }}" class="form-check-input" type="radio" value="False" {% if not dish.veg %}checked{% endif %} required>
+                                    <label for="modal_veg_false_{{ dish.id }}" class="form-check-label">Non-veg</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Update Dish</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-primary" role="alert">
+        No match found
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
