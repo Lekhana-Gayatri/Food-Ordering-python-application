@@ -18,9 +18,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
 
 urlpatterns = [
-    path('res/<int:pk>',resView.as_view()),
     path('', users.as_view(),name='users'),
-    path('dish/<int:pk>', dishView.as_view()),
     path('admin/', admin.site.urls),
     path("login/",LoginView.as_view(),name="login"),
     path("logout/",LogoutView.as_view(),name="logout"),
@@ -29,17 +27,7 @@ urlpatterns = [
     path("register/resend-email/", ResendEmailVerificationView.as_view(), name="rest_resend_email"),
     path("account-confirm-email/<str:key>/", email_confirm_redirect, name="account_confirm_email"),
     path("account-confirm-email/", VerifyEmailView.as_view(), name="account_email_verification_sent"),
-    path("password/reset/", PasswordResetView.as_view(), name="rest_password_reset"),
-    path(
-        "password/reset/confirm/<str:uidb64>/<str:token>/",
-        password_reset_confirm_redirect,
-        name="password_reset_confirm",
-    ),
-    path("password/reset/confirm/", PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('search/', SearchView.as_view(), name='search'),
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

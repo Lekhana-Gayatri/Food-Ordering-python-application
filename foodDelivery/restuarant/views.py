@@ -7,34 +7,6 @@ from .permissions import *
 from rest_framework import status
 from django.http import response
 
-def hello(request):
-    return response('<p>hello</p>')
-
-# class resView(APIView):
-#     permission_classes = [IsAdminUser,IsAuthenticated]
-    
-#     def get(self,request,pk):
-#         print(request.user)
-#         res = Restaurant.objects.filter(pk=pk)
-#         ser=resSerializer(res,many=True)
-#         return Response(ser.data)
-#     def post(self,request,pk):
-#         ser=resSerializer(data=request.data)
-#         if ser.is_valid():
-#             ser.save()
-#             return Response(ser.data,status=status.HTTP_201_CREATED)
-#         return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-#     def delete(self,request,pk):
-#         ser=Restaurant.objects.get(pk=pk)
-#         ser.delete()
-#         return Response( status=status.HTTP_204_NO_CONTENT)
-#     def put(self,request,pk):
-#         items=Restaurant.objects.get(pk=pk)
-#         ser=resSerializer(items,data=request.data)
-#         if ser.is_valid():
-#             ser.save()
-#             return Response(ser.data)
-#         return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
 
 from django.db.models import Q
 from django.http import JsonResponse
@@ -48,12 +20,6 @@ class SearchView(APIView):
         dishes_data = [{"id": dish.id, "dish_name": dish.dish_name, "price": dish.price, "description": dish.description, "dish_img": dish.dish_img.url if dish.dish_img else None, "rating": dish.rating} for dish in dishes]
         print(dishes_data)
         return JsonResponse({'dishes': dishes_data, 'query': query})
-
-    # Convert the dishes queryset to a list of dictionaries
-    # dishes_data = [{"id": dish.id, "name": dish.dish_name, "price": dish.price} for dish in dishes]
-    
-    # return JsonResponse({'dishes': dishes_data, 'query': query})
-
 
 class resView(APIView):
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
