@@ -1,6 +1,5 @@
-import React, { useState} from 'react';
-import SearchComponent from './SearchComponent';
-function NavBar({ token }) {
+import React from 'react';
+function NavBar() {
     return (
       <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,7 +17,6 @@ function NavBar({ token }) {
           <a className="nav-link" href="/about">About</a>
         </li>
       </ul>
-      <SearchComponent token={token}/>
     </div>
   </div>
 </nav>

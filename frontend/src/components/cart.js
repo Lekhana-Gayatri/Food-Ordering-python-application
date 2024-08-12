@@ -86,7 +86,7 @@ const OrderSummary = (props) => {
                 </div>
             ))}
             
-            {/* Display the total sum at the bottom */}
+           
             <div className="border-top pt-3 mt-3">
             <div className="d-flex justify-content-between">
                     <strong>Delivery PartnerFee</strong>

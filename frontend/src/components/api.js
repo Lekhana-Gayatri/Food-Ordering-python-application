@@ -1,10 +1,7 @@
 import axios from 'axios';
 
-// const API_URL = 'http://localhost:8000/cart/';
-
 export const getRestaurants = async (token,API_URL) => {
   try {
-    console.log(API_URL,10000000000);
     const response = await axios.get(API_URL, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -21,11 +18,10 @@ export const getRestaurants = async (token,API_URL) => {
 
 export const addToCart = async (token, API_URL, dishId, quantity) => {
   try {
-    console.log(dishId,1000000000000)
 
       const response = await axios.post(
           `${API_URL}add_to_cart/${dishId}/`,
-          { quantity }, // Passing the quantity in the request body
+          { quantity },
           {
               headers: {
                   'Authorization': `Bearer ${token}`,
@@ -39,12 +35,11 @@ export const addToCart = async (token, API_URL, dishId, quantity) => {
   }
 };
 
-// Function to remove an item from the cart
 export const removeFromCart = async (token, API_URL, dishId) => {
   try {
       const response = await axios.post(
           `${API_URL}/remove_from_cart/${dishId}/`,
-          {}, // No need for body, just triggering the removal
+          {}, 
           {
               headers: {
                   'Authorization': `Bearer ${token}`,

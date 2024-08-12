@@ -18,7 +18,7 @@ const LoginPage = ({ API_URL, setToken }) => {
                 email,
                 password
             });
-            setToken(response.data.token); // Save token to context or localStorage
+            setToken(response.data.token); 
             setError('');
         } catch (err) {
             setError('Invalid username or password');

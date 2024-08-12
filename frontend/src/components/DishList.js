@@ -22,10 +22,9 @@ function RestaurantList(props) {
     try {
         console.log(dishId, 1000000000000);
 
-        // Send the dishId in the request body instead of the URL
         const response = await axios.post(`cart/add_to_cart/`, {
-            dish_id: dishId,    // Pass dishId in the request body
-            quantity: 1         // You can adjust the quantity as needed
+            dish_id: dishId,    
+            quantity: 1         
         }, {
             headers: {
                 Authorization: `Bearer ${props.token}`
@@ -69,7 +68,7 @@ function RestaurantList(props) {
 
                 <button
                   className="btn btn-success"
-                  // onClick={() => handleCart(res.id)}
+                   onClick={() => handleCart(res.id)}
                 >
                   Add to Cart
                 </button>
