@@ -22,6 +22,8 @@ import FoodList from './components/FoodList';
 import DishList from './components/DishList';
 import Search from './components/SearchComponent';
 import LoginPage from './components/Login';
+import RegisterPage from './components/SignUp';
+
 
 import {
   BrowserRouter as Router,Routes,
@@ -79,6 +81,8 @@ function App() {
      <Route path="/dishes/:id"element={<DishList token={token} API_URL={'http://localhost:8000/rest/getDish'} />}/>
      <Route path='/cart' element={<OrderSummary token={token} API_URL={'http://localhost:8000/cart/'}/>} />
      <Route path='/login' element={<LoginPage/>}></Route>
+     <Route path='/register' element={<RegisterPage/>}></Route>
+
      </Routes>
      </div>
   </Router>

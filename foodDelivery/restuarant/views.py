@@ -94,3 +94,14 @@ class dishView(APIView):
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         except Dish.DoesNotExist:
             return Response({'error': 'Dish not found'}, status=status.HTTP_404_NOT_FOUND)
+from django.http import JsonResponse
+
+def getDishes(request, pk):
+    try:
+        dishes = Dish.objects.filter(restaurant_id=pk)
+        ser = dishSerializer(dishes, many=True)
+        return JsonResponse(ser.data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+        
