@@ -1,10 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import *
-class resSerializer(ModelSerializer):
+class resSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields= '__all__'
-class dishSerializer(ModelSerializer):
+class dishSerializer(serializers.ModelSerializer):
+    restaurant_name = serializers.CharField(source='restaurant.name', read_only=True)
+
     class Meta:
         model = Dish
-        fields='__all__'
+        fields=['id','dish_name','restaurant_name','rating','price','dish_img','discount','veg']

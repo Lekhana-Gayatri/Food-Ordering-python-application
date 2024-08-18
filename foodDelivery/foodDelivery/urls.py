@@ -1,5 +1,6 @@
 from django.urls import include, path
 from django.contrib import admin
+from django.conf.urls.static import static
 from User.views import *
 from restuarant.views import *
 from dj_rest_auth.registration.views import (
@@ -18,9 +19,11 @@ from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
 
 urlpatterns = [
-    path('res/<int:pk>',resView.as_view()),
+    #path('res/<int:pk>',resView.as_view()),
     path('', users.as_view(),name='users'),
-    path('dish/<int:pk>', dishView.as_view()),
+    path("rest/",include("restuarant.urls")),
+    path("cart/",include("order.urls")),
+    #path('dish/<int:pk>', dishView.as_view()),
     path('admin/', admin.site.urls),
     path("login/",LoginView.as_view(),name="login"),
     path("logout/",LogoutView.as_view(),name="logout"),
@@ -39,7 +42,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('search/', SearchView.as_view(), name='search'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

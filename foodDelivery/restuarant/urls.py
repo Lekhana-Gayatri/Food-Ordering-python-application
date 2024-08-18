@@ -8,7 +8,8 @@ urlpatterns = [
     # path('update_dish/<int:id>', update_dish, name='update_dish'),
     # path('delete_dish/<int:id>', delete_dish, name='delete_dish'),
     # path('res/logout', restaurant_logout, name='restaurant_logout'),
-    path('/res/<int:pk>',resView.as_view()),
+
+    path('res/<int:pk>',resView.as_view()),
     path('dish/<int:pk>',dishView.as_view()),
-    path('/hello',hello,name='hello'),
+    path('getDish/<int:pk>',getDishes,name='getDishes'),
 ]
