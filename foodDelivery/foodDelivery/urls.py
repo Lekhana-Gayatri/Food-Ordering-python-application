@@ -1,6 +1,5 @@
 from django.urls import include, path
 from django.contrib import admin
-from django.conf.urls.static import static
 from User.views import *
 from restuarant.views import *
 from dj_rest_auth.registration.views import (
@@ -31,3 +30,4 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
