@@ -19,11 +19,9 @@ const LoginPage = ({ API_URL, setToken }) => {
                 password
             });
             setToken(response.data.token); 
-            console.log(response.data.key)  
             setError('');
-            
         } catch (err) {
-            setError('Invalid username or password',err);
+            setError('Invalid username or password');
         }
     };
 
