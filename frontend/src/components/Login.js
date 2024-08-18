@@ -18,11 +18,11 @@ const LoginPage = ({ API_URL, setToken }) => {
                 email,
                 password
             });
+            setToken(response.data.token); 
             console.log(response.data.key)  
             setError('');
             
         } catch (err) {
-            console.log(err)
             setError('Invalid username or password',err);
         }
     };

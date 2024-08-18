@@ -1,18 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from restuarant.models import *
-# from django.contrib.auth.models import Group
-# class orderDetails(models.Model):
-#     user = models.ForeignKey(User , on_delete=models.CASCADE,null=False)
-#     dish = models.ForeignKey(Dish , on_delete=models.CASCADE,null=False)
-#     to_address = models.CharField(max_length=300)
-#     status = models.Choices({'cancelled':'cancelled','delivered':'delivered','pending':'pending'})
-#     payment=models.BooleanField(default=False)
-
-
-# class order(models.Model):
-#     orderDetails=models.ForeignKey(orderDetails,on_delete=models.CASCADE,null=False)
-#     deliveryPerson=models.ForeignKey()
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

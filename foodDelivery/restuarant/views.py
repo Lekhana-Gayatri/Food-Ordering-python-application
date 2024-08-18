@@ -6,33 +6,6 @@ from rest_framework.permissions import IsAdminUser,IsAuthenticated
 from .permissions import *
 from rest_framework import status
 from django.http import response
-
-# class resView(APIView):
-#     permission_classes = [IsAdminUser,IsAuthenticated]
-    
-#     def get(self,request,pk):
-#         print(request.user)
-#         res = Restaurant.objects.filter(pk=pk)
-#         ser=resSerializer(res,many=True)
-#         return Response(ser.data)
-#     def post(self,request,pk):
-#         ser=resSerializer(data=request.data)
-#         if ser.is_valid():
-#             ser.save()
-#             return Response(ser.data,status=status.HTTP_201_CREATED)
-#         return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-#     def delete(self,request,pk):
-#         ser=Restaurant.objects.get(pk=pk)
-#         ser.delete()
-#         return Response( status=status.HTTP_204_NO_CONTENT)
-#     def put(self,request,pk):
-#         items=Restaurant.objects.get(pk=pk)
-#         ser=resSerializer(items,data=request.data)
-#         if ser.is_valid():
-#             ser.save()
-#             return Response(ser.data)
-#         return Response(ser.errors,status=status.HTTP_400_BAD_REQUEST)
-
 from django.db.models import Q
 from django.http import JsonResponse
 class SearchView(APIView):
