@@ -1,4 +1,4 @@
-This application offers a comprehensive solution for restaurant management, including user login functionality, restaurant menu management by staff, and cart management by users.
+This application offers a comprehensive APIs for restaurant management, including user login functionality, restaurant menu management by staff, and cart management by users.
 
 **Technologies Used:**
 
